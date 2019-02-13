@@ -9,8 +9,13 @@ function setup(){
 }
 
 function draw() {
-  
+
   player.update();
   player.show();
+  
   requestAnimationFrame(draw);
+}
+
+function moveUp(){
+  player.moveUp();
 }
