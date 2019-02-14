@@ -1,13 +1,6 @@
 
 bird = new Image();
 bird.src = "bird.png"
-pipeS = new Image();
-pipeS.src = "pipeSouth.png"
-pipeN = new Image();
-pipeN.src = "pipeNorth.png"
-bg = new Image();
-bg.src = "bg.png"
-var gap = 100;
 
 class Player {
 
