@@ -1,5 +1,5 @@
 var panSpeed = 1;
-var gravity = 0.1;
+var gravity = 0.3;
 var player;
 
 function setup(){
@@ -19,6 +19,9 @@ function draw() {
   requestAnimationFrame(draw);
 }
 
-function moveUp(){
+document.addEventListener('keypress', (event) => {
   player.moveUp();
-}
+});
+
+
+

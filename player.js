@@ -9,7 +9,6 @@ class Player {
     this.y = y;
     this.velY = 0;
     this.velX= panSpeed;
-    this.size = 10;
 
   }
 
@@ -28,13 +27,20 @@ class Player {
   }
 
   update(){
-    this.velY += gravity;
-    this.x += this.velX;
-    this.y += this.velY;
+
+    if(this.y>=canvas.height){
+      location.reload();
+    }
+    else{
+      this.velY += gravity;
+      //this.x += this.velX;
+      this.y += this.velY;
+    }
   }
 
 
   moveUp(){
-    this.y -= 200;
+    this.y -= 50;
+    this.velY = 0;
 }
 }
