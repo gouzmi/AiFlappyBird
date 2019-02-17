@@ -9,7 +9,14 @@ pipeN.src = "pipeNorth.png"
 
 class Pipe{
     constructor(){
+      var pipe = [];
 
+      pipe[0] = {
+          x : canvas.width-52-50,
+          y : 0
+      };
+
+      this.pipe = pipe;
     }
 
     show(){
@@ -17,16 +24,24 @@ class Pipe{
         var maxY1 =0;
         var minY2 =canvas.height-pipeS.height;
         ctx.beginPath();
-        //ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-        //ctx.fill();
         ctx.drawImage(bg,0,0)
-      
-        ctx.drawImage(pipeN,canvas.width-52-50,maxY1);
-        ctx.drawImage(pipeS,canvas.width-52-50,pipeN.height-maxY1+gap);
+        for(var i = 0; i < this.pipe.length; i++){
+          
+            ctx.drawImage(pipeN,this.pipe[i].x,this.pipe[i].y);
+            ctx.drawImage(pipeS,this.pipe[i].x,pipeN.height-this.pipe[i].y+gap);
+
+            this.pipe[i].x -= 3;
+          
+        }
+        
         
       }
     
       update(){
+        for(var i = 0; i < pipe.length; i++){
+          this.pipe[i].x= -10;
+           
+        }
       }
     
     

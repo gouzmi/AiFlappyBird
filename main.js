@@ -1,12 +1,12 @@
 var panSpeed = 1;
-var gravity = 0.3;
+var gravity = 0.2;
 var player;
 var stop = false;
 var frameCount = 0;
 var fps, fpsInterval, startTime, now, then, elapsed;
 
 function setup(){
-  player = new Player(10,canvas.height/2);
+  player = new Player(30,canvas.height/2);
   pipe = new Pipe();
   startAnimating(60);
 }
