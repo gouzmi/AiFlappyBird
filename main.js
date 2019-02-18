@@ -1,13 +1,19 @@
 var panSpeed = 1;
-var gravity = 0.2;
+var gravity = 0.3;
 var player;
 var stop = false;
 var frameCount = 0;
 var fps, fpsInterval, startTime, now, then, elapsed;
+var mousedownID = -1;  //Global ID of mouse down interval
+
 
 function setup(){
-  player = new Player(30,canvas.height/2);
+  
+  
+  player = new Player(60,canvas.height/2);
   pipe = new Pipe();
+  canvas.addEventListener("mousedown", mousedown);
+  canvas.addEventListener("mouseup", mouseup);
   startAnimating(60);
 }
 
@@ -17,6 +23,8 @@ function draw() {
   pipe.show();
   player.update();
   player.show();
+  ctx.font = "20px Verdana";
+  ctx.fillText("Score : "+score,-50+canvas.width/2,50);
   
   requestAnimationFrame(draw);
 }
@@ -44,10 +52,8 @@ function animate() {
   // if enough time has elapsed, draw the next frame
 
   if (elapsed > fpsInterval) {
-      // Get ready for next frame by setting then=now, but also adjust for your
-      // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
-      then = now - (elapsed % fpsInterval);
 
+      then = now - (elapsed % fpsInterval);
       pipe.update();
       pipe.show();
       player.update();
@@ -57,4 +63,19 @@ function animate() {
 }
 
 
+function mousedown(event) {
+  if(mousedownID==-1)  //Prevent multimple loops!
+    mousedownID = setInterval(whilemousedown, 50 );
 
+
+}
+function mouseup(event) {
+   if(mousedownID!=-1) {  //Only stop if exists
+     clearInterval(mousedownID);
+     mousedownID=-1;
+   }
+
+}
+function whilemousedown() {
+   player.moveUp();
+}

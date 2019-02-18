@@ -1,4 +1,5 @@
-
+var fly = new Audio();
+fly.src = "fly.mp3";
 bird = new Image();
 bird.src = "bird.png"
 
@@ -40,7 +41,8 @@ class Player {
 
 
   moveUp(){
-    this.y -= 30;
+    this.y -= 35;
     this.velY = 0;
+    fly.play();
 }
 }
