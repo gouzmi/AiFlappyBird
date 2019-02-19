@@ -9,6 +9,8 @@ pipeS.src = "pipeSouth.png"
 pipeN = new Image();
 pipeN.src = "pipeNorth.png"
 var score = 0;
+var bestScore = 0;
+var speed = 4;
 
 var scor = new Audio();
 scor.src = "score.mp3";
@@ -20,7 +22,7 @@ class Pipe{
       var pipe = [];
 
       pipe[0] = {
-          x : canvas.width-52,
+          x : 1.5*canvas.width,
           y : Math.floor(Math.random()*(ymax-ymin+1)+ymin)
       };
       this.ymin = ymin;
@@ -39,39 +41,47 @@ class Pipe{
             ctx.drawImage(pipeN,this.pipe[i].x,this.pipe[i].y);
             ctx.drawImage(pipeS,this.pipe[i].x,pipeN.height+this.pipe[i].y+gap);
 
-            this.pipe[i].x -= 4;
+            if((player.x+bird.width>=this.pipe[i].x && player.x<=this.pipe[i].x+pipeN.width)&&(player.y<=this.pipe[i].y+pipeN.height || player.y+bird.height>=this.pipe[i].y+pipeN.height+gap)){
+              if(bestScore<score){
+                bestScore=score;
+                console.log("bestScore "+bestScore);
 
-            if( this.pipe[i].x < 134 && this.pipe[i].x >=130  ){
+              }
+              player.y=canvas.height/2;
+              player.velY=0;
+              this.init();
+              score=0;
+              break;
+            }
+
+            this.pipe[i].x -= speed;
+
+            if( this.pipe[i].x < 120+speed && this.pipe[i].x >=120  ){
               this.pipe.push({
                 x : canvas.width,
                 y : Math.floor(Math.random()*(ymax-ymin+1)+ymin)   // generer des nouveaux pipes
             });   
           }
 
-          if(this.pipe[i].x < (player.x-pipeN.width) && this.pipe[i].x >=(player.x-pipeN.width)-4 ){
+          if(this.pipe[i].x < (player.x-pipeN.width) && this.pipe[i].x >=(player.x-pipeN.width)-speed ){
             score++;
             
             scor.play();  //incrémenter le score
         }
-
-
             if( this.pipe[i].x < -300 ){
               this.pipe.shift();  // nettoyer le tab
           }
           
-          
         }
-
-        
-        
         
       }
-    
-      update(){
-        for(var i = 0; i < pipe.length; i++){
-          this.pipe[i].x= -10;
-           
-        }
+
+      init() {
+        this.pipe=[]
+                this.pipe[0] = {
+                    x : 1.5*canvas.width-52,
+                    y : Math.floor(Math.random()*(ymax-ymin+1)+ymin)
+                };
       }
     
     

@@ -9,24 +9,11 @@ var mousedownID = -1;  //Global ID of mouse down interval
 
 function setup(){
   
-  
   player = new Player(60,canvas.height/2);
   pipe = new Pipe();
   canvas.addEventListener("mousedown", mousedown);
   canvas.addEventListener("mouseup", mouseup);
   startAnimating(60);
-}
-
-function draw() {
-  
-  pipe.update();
-  pipe.show();
-  player.update();
-  player.show();
-  ctx.font = "20px Verdana";
-  ctx.fillText("Score : "+score,-50+canvas.width/2,50);
-  
-  requestAnimationFrame(draw);
 }
 
 document.addEventListener('keypress', (event) => {
@@ -54,11 +41,15 @@ function animate() {
   if (elapsed > fpsInterval) {
 
       then = now - (elapsed % fpsInterval);
-      pipe.update();
+      
       pipe.show();
       player.update();
       player.show();
-
+      var ctx = canvas.getContext("2d");
+      ctx.beginPath();
+      ctx.font = "20px Verdana";
+      ctx.fillText("Score : "+score,-50+canvas.width/2,50);
+      ctx.fillText("Best Score : "+bestScore,-75+canvas.width/2,canvas.height-25);
   }
 }
 

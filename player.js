@@ -28,9 +28,11 @@ class Player {
 
   update(){
 
-    if(this.y>=canvas.height){
+    if(this.y>=canvas.height||this.y<=0){
       this.y=canvas.height/2;
       this.velY=0;
+      score=0;
+      pipe.init();
     }
     else{
       this.velY += gravity;
@@ -41,7 +43,7 @@ class Player {
 
 
   moveUp(){
-    this.y -= 35;
+    this.y -= 30;
     this.velY = 0;
     fly.play();
 }
